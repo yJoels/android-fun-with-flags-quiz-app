@@ -22,4 +22,8 @@
     <string name="titulo_password">Password</string>
     <string name="hint_nombre">Ingrese el Nombre</string>
     <string name="hint_password">Ingrese su Password</string>
+    <string name="titulo_finjuego">Felicidades Ganaste el Juego</string>
+
+    <string name="button_salir">Salir</string>
+
 </resources>

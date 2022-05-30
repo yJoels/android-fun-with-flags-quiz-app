@@ -7,6 +7,7 @@ import java.security.SecureRandom;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Intent;
 import android.content.res.AssetManager;
 import android.graphics.drawable.Drawable;
 
@@ -27,12 +28,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
+import android.widget.Toast;
 
 import com.nadershamma.apps.eventhandlers.GuessButtonListener;
 import com.nadershamma.apps.lifecyclehelpers.QuizViewModel;
 
 public class MainActivityFragment extends Fragment {
-
+    private int contador = 0;
     private SecureRandom random;
     private Animation shakeAnimation;
     private ConstraintLayout quizConstraintLayout;
@@ -90,8 +92,9 @@ public class MainActivityFragment extends Fragment {
         return view;
     }
 
-    public void updateGuessRows() {
-
+ // mandar parametro entero
+    public void updateGuessRows(int n) {
+        this.quizViewModel.setGuessRows(String.valueOf(n));
         int numberOfGuessRows = this.quizViewModel.getGuessRows();
         for (TableRow row : this.guessTableRows) {
             row.setVisibility(View.GONE);
@@ -120,9 +123,33 @@ public class MainActivityFragment extends Fragment {
                 ++flagCounter;
             }
         }
+        if(flagCounter >= 10){
+            contador += 2;
+            if(contador == 2) {
+                Toast.makeText(getContext(), "Nivel 1",Toast.LENGTH_LONG).show();
+            }
+            if(contador == 4) {
+                Toast.makeText(getContext(), "Nivel 2",Toast.LENGTH_LONG).show();
+            }
+            if(contador == 6) {
+                Toast.makeText(getContext(), "Nivel 3",Toast.LENGTH_LONG).show();
+            }
+            if(contador == 8) {
+                Toast.makeText(getContext(), "Nivel 4",Toast.LENGTH_LONG).show();
+            }
+            if(contador == 10){
+                Intent intent = new Intent(getContext(),resultados.class);
+                startActivity(intent);
+            }
+            this.updateGuessRows(contador);
+        }
 
-        this.updateGuessRows();
+
         this.loadNextFlag();
+
+
+
+
     }
 
     private void loadNextFlag() {

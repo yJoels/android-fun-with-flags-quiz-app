@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import com.nadershamma.apps.eventhandlers.PreferenceChangeListener;
 import com.nadershamma.apps.lifecyclehelpers.QuizViewModel;
@@ -25,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
     private MainActivityFragment quizFragment;
     private QuizViewModel quizViewModel;
     private OnSharedPreferenceChangeListener preferencesChangeListener;
-
+    private TextView nombreuser;
     private void setSharedPreferences() {
         // set default values in the app's SharedPreferences
         PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
@@ -55,6 +56,10 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         this.setSharedPreferences();
         this.screenSetUp();
+
+        nombreuser = findViewById(R.id.textView_nombre);
+        String nombre = getIntent().getExtras().getString("nombre");
+        nombreuser.setText(nombre);
     }
 
     @Override
